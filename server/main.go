@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 取得の関数
 func getTodo(c *gin.Context) {
 	//取得の関数を実行
 	todos := db_model.GetTask()
@@ -21,6 +22,7 @@ type Input struct {
 	CHECKED int
 }
 
+// 挿入の関数
 func postTodo(c *gin.Context) {
 	//リクエストにおけるbodyの部分はここに格納する
 	var reqBody Input
@@ -32,6 +34,30 @@ func postTodo(c *gin.Context) {
 	c.JSON(200, "OK")
 }
 
+// requestのbodyの型定義
+type Update struct {
+	ID      string
+	CONTENT string
+	CHECKED int
+}
+
+func updateTodo(c *gin.Context) {
+	//リクエストにおけるbodyの部分はここに格納する
+	var reqBody Update
+	c.BindJSON(&reqBody)
+	//DB挿入の関数をここで実行する
+	db_model.UpdateData(reqBody.ID, reqBody.CONTENT, reqBody.CHECKED)
+	//ここでレスポンスを返す
+	c.JSON(200, "OK")
+}
+
+func deleteTodo(c *gin.Context) {
+	//パラメータとしてidを取得する
+	id := c.Param("id")
+	//DB削除の関数をここで実行
+	db_model.DeleteData(id)
+	c.JSON(200, "OK")
+}
 func main() {
 	r := gin.Default()
 	//cors Error対策
@@ -61,6 +87,10 @@ func main() {
 	r.GET("/get_datas", getTodo)
 	//DBにtodoを挿入するAPI
 	r.POST("/post_data", postTodo)
+	//todo内容を変更し更新する
+	r.PUT("update_data", updateTodo)
+	//todoの内容を削除する
+	r.DELETE("/delete_data/:id", deleteTodo)
 	//PORT番号を指定しサーバー起動(PORT番号を指定しなければ8080なはず)
 	r.Run(":9090")
 }

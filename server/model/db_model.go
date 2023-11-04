@@ -79,3 +79,44 @@ func PostData(CONTENT string, CHECKED int) {
 		log.Fatal(err)
 	}
 }
+
+// DB更新
+func UpdateData(ID string, CONTENT string, CHECKED int) {
+	db, err := sql.Open("sqlite3", "data/database.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+	//更新のSQL文を書く?にはそれぞれ入れたいパラーメータがのちに入る
+	cmd := "UPDATE todos SET CONTENT=$1, CHECKED=$2 WHERE id=$3"
+
+	stmt, err := db.Prepare(cmd)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	//パラメータをぶち込む！
+	if _, err = stmt.Exec(CONTENT, CHECKED, ID); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func DeleteData(ID string) {
+	db, err := sql.Open("sqlite3", "data/database.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+	//削除のSQL文を書く?にはそれぞれ入れたいパラーメータがのちに入る
+	cmd := "DELETE FROM todos WHERE id=?"
+
+	stmt, err := db.Prepare(cmd)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	//パラメータをぶち込む！
+	if _, err = stmt.Exec(ID); err != nil {
+		log.Fatal(err)
+	}
+}
