@@ -63,8 +63,8 @@ func main() {
 	//cors Error対策
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
-			"https://localhost:3000",
-			"https://localhost:3001",
+			"http://localhost:3000",
+			"http://localhost:3001",
 		},
 		AllowMethods: []string{
 			"POST",
