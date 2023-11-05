@@ -12,7 +12,7 @@ const InputForm = () => {
                     margin:"auto",
                 }}
             >
-                <Input variant="underlined"/>
+                <Input label="todo" variant="underlined"/>
             </div>
             <div
                 style={{
