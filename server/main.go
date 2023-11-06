@@ -88,7 +88,7 @@ func main() {
 	//DBにtodoを挿入するAPI
 	r.POST("/post_data", postTodo)
 	//todo内容を変更し更新する
-	r.PUT("update_data", updateTodo)
+	r.PUT("/update_data", updateTodo)
 	//todoの内容を削除する
 	r.DELETE("/delete_data/:id", deleteTodo)
 	//PORT番号を指定しサーバー起動(PORT番号を指定しなければ8080なはず)
