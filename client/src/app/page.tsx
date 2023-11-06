@@ -1,10 +1,12 @@
+'use client'
 import ja from "@/shared/ja";
-import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/react";
 import InputForm from "./_home/inputForm";
 import TodoList from "./_home/todoList";
+import { useState } from "react";
 
 export default function Home() {
+  const [postBox,setPostBox]=useState<boolean>(false);
+  const [editBox,setEditBox]=useState<boolean>(false);
   return (
     <main
       style={{
@@ -13,12 +15,14 @@ export default function Home() {
         textAlign:"center",
       }}
     >
-      <h1
-
-      >
+      <h1>
         {ja.home.title}
       </h1>
-      <InputForm/>
+      <InputForm
+        editBox={editBox}
+        postBox={postBox}
+        setPostBox={setPostBox}
+      />
       <TodoList/>
     </main>
   )

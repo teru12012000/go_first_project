@@ -3,3 +3,7 @@ export type todoType={
     content:string;
     checked:number;
 }
+export type inputTodoType={
+    CONTENT:string;
+    CHECKED:number;
+}
