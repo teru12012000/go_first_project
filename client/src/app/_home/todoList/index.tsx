@@ -4,6 +4,7 @@ import { todoType } from "@/shared/types/api";
 import { getTodo } from "@/util/getAPI";
 import { CircularProgress } from "@nextui-org/react";
 import useSWR from "swr";
+import TodoItem from "../todoItem";
 
 const TodoList = () => {
     const {data,isLoading}=useSWR("http://localhost:9090/get_datas",getTodo);
@@ -37,10 +38,16 @@ const TodoList = () => {
                             style={{
                                 width:"250px",
                                 margin:"5px auto",
-                                backgroundColor:"white",
+                                backgroundColor:item.checked===0?'white':'silver',
+                                textAlign:"start",
+                                height:"30px",
                             }}
                         >
-                            {item.content}
+                            <TodoItem
+                                id={item.id}
+                                item={item.content} 
+                                isChecked={item.checked}                                
+                            />
                         </div>
                     ))}
                 </>
