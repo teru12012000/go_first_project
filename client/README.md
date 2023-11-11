@@ -6,6 +6,7 @@ todoアプリのバックエンドコードである。
 - Typescript
 - Next-UI
 - swr
+- vannila-extract
 
 ## 起動手順等
 ### 前提
