@@ -51,7 +51,6 @@ func GetTask() []Todo {
 		if err != nil {
 			log.Fatal(err)
 		}
-
 		datas = append(datas, data)
 	}
 	return datas

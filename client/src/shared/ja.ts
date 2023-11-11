@@ -4,6 +4,8 @@ export default {
         title:"TODO (Next.jsとGo)",
         inputForm:{
             buttonTitle:"登録する"
-        }
+        },
+        edit:"編",
+        delete:"消"
     }
 }

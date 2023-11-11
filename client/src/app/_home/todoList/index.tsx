@@ -40,7 +40,7 @@ const TodoList = () => {
                                 margin:"5px auto",
                                 backgroundColor:item.checked===0?'white':'silver',
                                 textAlign:"start",
-                                height:"30px",
+                                height:"50px",
                             }}
                         >
                             <TodoItem
