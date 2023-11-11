@@ -16,9 +16,9 @@ todoアプリのバックエンドコードである。
 
 ### 手順
 1.  ``` 
-    $npm install
+    npm install
     ```
 2. ```
-    $npm run dev
+    npm run dev
     ```
 ※基本はnpmで良いがyarnやbunなど使いたい人は別に使っても良い
