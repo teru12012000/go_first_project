@@ -5,6 +5,7 @@ import { postAPI } from "@/util/postAPI";
 import { Button, Input } from "@nextui-org/react";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { mutate, useSWRConfig } from "swr";
+import styles from "./style.css";
 interface props{
     editBox:boolean;
     postBox:boolean;
@@ -27,12 +28,7 @@ const InputForm = (props:props) => {
     }
     return (
         <div>
-            <div
-                style={{
-                    width:"270px",
-                    margin:"auto",
-                }}
-            >
+            <div className={styles.input}>
                 <Input 
                     isDisabled={props.editBox}
                     label="todo" 
@@ -41,11 +37,7 @@ const InputForm = (props:props) => {
                     onChange={(e)=>handleChange(e)}
                 />
             </div>
-            <div
-                style={{
-                    marginTop:"10px"
-                }}
-            >
+            <div className={styles.button}>
                 <Button 
                     isDisabled={/^[\x20\u3000]+$/.test(value)||!value}
                     color="primary"

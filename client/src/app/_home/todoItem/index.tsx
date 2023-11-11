@@ -8,6 +8,7 @@ import EditOrDeleteButton from "../editOrDeleteButton";
 import { useState } from "react";
 import { deleteTodo } from "@/util/deleteAPI";
 import EditInputText from "../editInputText";
+import styles from "./style.css";
 interface props{
     id:string;
     item:string;
@@ -46,21 +47,15 @@ const TodoItem = (props:props) => {
         mutate('http://localhost:9090/get_datas');
     }
     return (
-        <div
-            style={{display:"flex",alignItems:"center",}}
-        >
-            <div
-                style={{width:"45px",marginLeft:"5px"}}
-            >
+        <div className={styles.containar}>
+            <div className={styles.checkBox}>
                 <Checkbox
                     isDisabled={isDisabled}
                     isSelected={props.isChecked===1?true:false} 
                     onValueChange={handleCheck}
                 />
             </div>
-            <div 
-                style={{width:"100px",overflow:"auto",height:"100%",}}
-            >
+            <div className={styles.itemContent}>
                 {isDisabled?(
                     <EditInputText
                         value={content}
@@ -70,12 +65,8 @@ const TodoItem = (props:props) => {
                     <p>{props.item}</p>
                 )}
             </div>
-            <div 
-                style={{display:"flex",width:"100px",justifyContent:"center",alignItems:"center",}}
-            >
-                <div
-                    style={{margin:"5px"}}
-                >
+            <div className={styles.buttonContents}>
+                <div className={styles.editButton}>
                     <EditOrDeleteButton 
                         color={"lime"} 
                         buttonTitle={isDisabled?ja.home.complete:ja.home.edit} 
@@ -83,9 +74,7 @@ const TodoItem = (props:props) => {
                         isDisabled={false}                        
                     />
                 </div>
-                <div
-                    style={{marginLeft:"10px"}}
-                >
+                <div className={styles.deleteButton}>
                     <EditOrDeleteButton 
                         color={"red"} 
                         buttonTitle={ja.home.delete} 
