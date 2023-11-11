@@ -6,6 +6,8 @@ export default {
             buttonTitle:"登録する"
         },
         edit:"編",
-        delete:"消"
+        delete:"消",
+        complete:"完",
+        notingItem:"todoはありません"
     }
 }

@@ -5,6 +5,7 @@ import { getTodo } from "@/util/getAPI";
 import { CircularProgress } from "@nextui-org/react";
 import useSWR from "swr";
 import TodoItem from "../todoItem";
+import ja from "@/shared/ja";
 
 const TodoList = () => {
     const {data,isLoading}=useSWR("http://localhost:9090/get_datas",getTodo);
@@ -25,11 +26,25 @@ const TodoList = () => {
                         marginTop:"60px",
                         display:"flex",
                         justifyContent:"center",
-                        alignContent:"center",
+                        color:"white",
                     }}
                 >
                     <CircularProgress color="primary" label="Loading..." />
                 </div>
+            ):data===null?(
+                <>
+                    <div
+                        style={{
+                            marginTop:"60px",
+                            display:"flex",
+                            justifyContent:"center",
+                            color:"white",
+                            
+                        }}
+                    >
+                        <p>{ja.home.notingItem}</p>
+                    </div>
+                </>
             ):(
                 <>
                     {data?.map((item:todoType)=>(

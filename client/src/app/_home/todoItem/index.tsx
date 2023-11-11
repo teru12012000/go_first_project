@@ -2,22 +2,22 @@
 import ja from "@/shared/ja";
 import { todoType } from "@/shared/types/api";
 import { updateTodo } from "@/util/putAPI";
-import { Button, Checkbox } from "@nextui-org/react";
+import { Checkbox } from "@nextui-org/react";
 import { mutate, useSWRConfig } from "swr";
 import EditOrDeleteButton from "../editOrDeleteButton";
 import { useState } from "react";
 import { deleteTodo } from "@/util/deleteAPI";
-
-
+import EditInputText from "../editInputText";
 interface props{
     id:string;
     item:string;
     isChecked:number;
 }
 const TodoItem = (props:props) => {
+    const [content,setContent]=useState<string>(props.item);
     const [isDisabled,setIsDisabled]=useState<boolean>(false);
     useSWRConfig();
-    const handleChange=async()=>{
+    const handleCheck=async()=>{
         const todo:todoType={
             id:props.id,
             content:props.item,
@@ -30,7 +30,15 @@ const TodoItem = (props:props) => {
         if(!isDisabled){
             setIsDisabled(true);
         }else{
+            const todo:todoType={
+                id:props.id,
+                content:content,
+                checked:props.isChecked,
+            }
+            await updateTodo(todo);
+            mutate('http://localhost:9090/get_datas');
             setIsDisabled(false);
+
         }
     }
     const handleDelete=async()=>{
@@ -44,15 +52,23 @@ const TodoItem = (props:props) => {
             <div
                 style={{width:"45px",marginLeft:"5px"}}
             >
-                <Checkbox 
+                <Checkbox
+                    isDisabled={isDisabled}
                     isSelected={props.isChecked===1?true:false} 
-                    onValueChange={handleChange}
+                    onValueChange={handleCheck}
                 />
             </div>
             <div 
                 style={{width:"100px",overflow:"auto",height:"100%",}}
             >
-                {props.item}
+                {isDisabled?(
+                    <EditInputText
+                        value={content}
+                        setValue={setContent}
+                    />
+                ):(
+                    <p>{props.item}</p>
+                )}
             </div>
             <div 
                 style={{display:"flex",width:"100px",justifyContent:"center",alignItems:"center",}}
@@ -62,7 +78,7 @@ const TodoItem = (props:props) => {
                 >
                     <EditOrDeleteButton 
                         color={"lime"} 
-                        buttonTitle={ja.home.edit} 
+                        buttonTitle={isDisabled?ja.home.complete:ja.home.edit} 
                         clickEvent={handleEdit} 
                         isDisabled={false}                        
                     />
